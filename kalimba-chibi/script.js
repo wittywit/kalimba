@@ -25,7 +25,7 @@ var timeoutId;
 var timeoutId2;
 var timeoutId3;
 var bool1 = 0;
-var tempo = 50;
+var tempo = 120;
 
 var tempodiv = document.querySelector(".tempo");
 var tempoInput = document.getElementById("tempo-input");
@@ -87,7 +87,7 @@ function playRecording() {
   recordedNotes.forEach(function(note) {
     timeOffset += note.time;
     setTimeout(function() {
-      instrument.play(note.note);
+      instrument.play(note.note, ac.currentTime, { gain: 5 });
       randomize();
     }, timeOffset);
   });
@@ -101,7 +101,7 @@ window.addEventListener("keydown", function (e) {
   console.log(key);
   var notediv = document.querySelector('[data-note="' + key + '"]');
   notediv.classList.add("key_active");
-  instrument.play(key);
+  instrument.play(key, ac.currentTime, { gain: 5 });
   randomize();
 });
 
@@ -276,6 +276,44 @@ var updateTempoDisplay = function () {
   tempoInput.value = Player.tempo;
 };
 
+// Initialize tempo input with default value
+tempoInput.value = tempo;
+
+// Request landscape orientation on mobile devices
+function requestLandscapeOrientation() {
+  if (screen && screen.orientation && screen.orientation.lock) {
+    screen.orientation.lock('landscape').catch(function(error) {
+      console.log('Orientation lock failed:', error);
+    });
+  }
+}
+
+// Check if device is mobile and request landscape
+function isMobileDevice() {
+  return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+}
+
+if (isMobileDevice()) {
+  // Request landscape orientation
+  requestLandscapeOrientation();
+  
+  // Show orientation hint if in portrait
+  function checkOrientation() {
+    if (window.innerWidth < window.innerHeight) {
+      document.body.classList.add('portrait-mode');
+    } else {
+      document.body.classList.remove('portrait-mode');
+    }
+  }
+  
+  // Check orientation on load and resize
+  checkOrientation();
+  window.addEventListener('resize', checkOrientation);
+  window.addEventListener('orientationchange', function() {
+    setTimeout(checkOrientation, 100);
+  });
+}
+
 
 
 
@@ -313,7 +351,7 @@ var playmidi = function (event) {
   setTimeout(function () {
     if (event.name == "Note on") {
       instrument.play(event.noteName, ac.currentTime, {
-        gain: event.velocity / 100,
+        gain: (event.velocity / 100) * 2,
       });
       randomize();
       var notediv = document.querySelector(
@@ -429,7 +467,7 @@ Soundfont.instrument(ac, "kalimba").then(function (instrumentnow) {
   keydivs.forEach((key) => {
     key.addEventListener("click", function (e) {
       var note = e.target.dataset.note.replace(/C-1/gi, "C4");
-      instrument.play(note);
+      instrument.play(note, ac.currentTime, { gain: 2 });
       if (isRecording) {
         var now = Date.now();
         var time = now - startTime;

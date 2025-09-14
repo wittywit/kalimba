@@ -3,8 +3,13 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="screen-orientation" content="landscape">
+    <meta name="orientation" content="landscape">
     <title>Kalimba Chibi</title>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"
@@ -15,25 +20,25 @@
   </head>
 
   <body>
-    <button id="menu-button">Menu</button>
+    <button id="menu-button">≡</button>
 
     <div id="settings-panel">
-      <h2>Settings</h2>
+      <h2>Controls</h2>
 
       <div class="form-group">
-        <label for="song-selection">Song</label>
+        <label for="song-selection">Song Selection</label>
         <select id="song-selection" class="form-control"></select>
       </div>
 
       <div class="form-group">
         <button id="play-button" class="btn btn-primary">Play</button>
-        <button id="stop-button" class="btn btn-secondary">Stop</button>
+        <button id="stop-button" class="btn">Stop</button>
         <button id="reset-button" class="btn btn-danger">Reset</button>
       </div>
 
       <div class="form-group">
         <button id="record-button" class="btn btn-success">Record</button>
-        <button id="play-recording-button" class="btn btn-info">Play Recording</button>
+        <button id="play-recording-button" class="btn btn-info">Playback</button>
       </div>
 
       <div class="form-group">
@@ -47,272 +52,272 @@
         </div>
         <div class="form-check">
           <input type="checkbox" class="form-check-input" id="keyboard_layout" />
-          <label class="form-check-label" for="keyboard_layout">Piano Keyboard Layout</label>
+          <label class="form-check-label" for="keyboard_layout">Piano Layout</label>
         </div>
       </div>
 
       <div class="form-group">
-        <label for="tempo-input">Tempo</label>
+        <label for="tempo-input">Tempo Control</label>
         <input type="number" class="form-control tempo" min="10" max="200" id="tempo-input" />
       </div>
 
       <div class="form-group">
-        <label for="deviceSelector">Device</label>
+        <label for="deviceSelector">Device Profile</label>
         <select class="form-select" id="deviceSelector" onchange="updatePPI()"></select>
       </div>
     </div>
 
-    <p id="loading">Loading soundfont...</p>
-    <div id="chibi-container">
-      <svg xmlns="http://www.w3.org/2000/svg" width="0" height="0">
-        <defs>
-          <symbol id="blush">
-            <ellipse cy="275" cx="105" rx="28" ry="18" fill="#ffcdd2"/>
-            <ellipse ry="18" rx="28" cx="375" cy="275" fill="#ffcdd2"/>
-          </symbol>
+    <p id="loading">Loading Kalimba Soundfont...</p>
+    
+    <div class="main-content">
+      <div id="chibi-container">
+        <svg xmlns="http://www.w3.org/2000/svg" width="0" height="0">
+          <defs>
+            <symbol id="blush">
+              <ellipse cy="275" cx="105" rx="28" ry="18" fill="#ffcdd2"/>
+              <ellipse ry="18" rx="28" cx="375" cy="275" fill="#ffcdd2"/>
+            </symbol>
+            
+            <!-- Extras -->
+            <symbol id="extra-teardrop">
+              <path d="M438 274s-20 20-20 36a20 20 0 1040 0c0-16-20-36-20-36z" fill="#29b6f6"/>
+            </symbol>
+            <symbol id="extra-lightning">
+              <path d="M330 103l-14 15 40 19-21-22 17-16-30-40-20 23z" fill="#f44336"/>
+              <path d="M393 94l-20-4 4 44 8-30 23 7 19-46-29-6z" fill="#f44336"/>
+              <path d="M436 142l-8-19-34 29 29-10 7 22 49-10-12-28z" fill="#f44336"/>
+            </symbol>
+            
+            <!-- Eyebrows -->
+            <symbol id="eyebrow-sad-left">
+              <path d="M61 172l86-57" fill="none" stroke="#212121" stroke-width="20" stroke-linecap="round"/>
+            </symbol>
+            <symbol id="eyebrow-sad-right">
+              <use href="#eyebrow-sad-left" transform="translate(480 0) scale(-1 1)"></use>
+            </symbol>
+            <symbol id="eyebrow-angry-left">
+              <path d="M161 164l-85-41" fill="none" stroke="#212121" stroke-width="20" stroke-linecap="round"/>
+            </symbol>
+            <symbol id="eyebrow-angry-right">
+              <use href="#eyebrow-angry-left" transform="translate(480 0) scale(-1 1)"></use>
+            </symbol>
+            <symbol id="eyebrow-caret-left">
+              <path d="M151 117l-48-44-48 44" fill="none" stroke="#212121" stroke-width="20" stroke-linecap="round" stroke-linejoin="round"/>
+            </symbol>
+            <symbol id="eyebrow-caret-right">
+              <use href="#eyebrow-caret-left" transform="translate(480 0) scale(-1 1)"></use>
+            </symbol>
+            
+            <!-- Eyes -->
+            <symbol id="eye-full-left">
+              <g id="eye-bg">
+                <circle cx="101" cy="192" r="47" fill="#212121"/>
+                <path d="M62 174c-14-12-12-23-8-37 0 14 11 18 25 20" fill="#212121"/>
+              </g>
+              <g id="eye-sparkle">
+                <circle cy="188" cx="77" r="13" fill="#fff"/>
+                <circle cx="90" cy="167" r="6" fill="#fff"/>
+              </g>
+            </symbol>
+            <symbol id="eye-full-right">
+              <use href="#eye-bg" transform="translate(480 0) scale(-1 1)"></use>
+              <use href="#eye-sparkle" transform="translate(278 0)"></use>
+            </symbol>
+            <symbol id="eye-heart-left">
+              <path d="M103 145a25 25 0 00-18 43l39 33 39-33a25 25 0 10-39-32 25 25 0 00-21-11z" fill="#f44336"/>
+            </symbol>
+            <symbol id="eye-heart-right">
+              <use href="#eye-heart-left" transform="translate(480 0) scale(-1 1)"></use>
+            </symbol>
+            <symbol id="eye-angry-left">
+              <path d="M168 198a54 54 0 01-88-62z" fill="#212121"/>
+            </symbol>
+            <symbol id="eye-angry-right">
+              <use href="#eye-angry-left" transform="translate(480 0) scale(-1 1)"></use>
+            </symbol>
+            <symbol id="eye-caret-left">
+              <path d="M161 230l-48-70-48 70" fill="none" stroke="#212121" stroke-width="20" stroke-linecap="round" stroke-linejoin="round"/>
+            </symbol>
+            <symbol id="eye-caret-right">
+              <use href="#eye-caret-left" transform="translate(480 0) scale(-1 1)"></use>
+            </symbol>
+            <symbol id="eye-arch-left">
+              <path d="M158 219a60 60 0 10-120 0" fill="none" stroke="#212121" stroke-width="20" stroke-linecap="round" stroke-linejoin="round"/>
+            </symbol>
+            <symbol id="eye-arch-right">
+              <use href="#eye-arch-left" transform="translate(480 0) scale(-1 1)"></use>
+            </symbol>
+            <symbol id="eye-half-left">
+              <path d="M172 226H64a54 54 0 11108 0z" fill="#212121"/>
+            </symbol>
+            <symbol id="eye-half-right">
+              <use href="#eye-half-left" transform="translate(480 0) scale(-1 1)"></use>
+            </symbol>
+            <symbol id="eye-dead-left">
+              <path d="M85 168l68 68M153 168l-68 68" fill="none" stroke="#212121" stroke-width="20" stroke-linecap="round"/>
+            </symbol>
+            <symbol id="eye-dead-right">
+              <use href="#eye-dead-left" transform="translate(480 0) scale(-1 1)"></use>
+            </symbol>
+            <symbol id="eye-squint-left">
+              <path d="M84 235l69-47-69-47" fill="none" stroke="#212121" stroke-width="20" stroke-linecap="round" stroke-linejoin="round"/>
+            </symbol>
+            <symbol id="eye-squint-right">
+              <use href="#eye-squint-left" transform="translate(480 0) scale(-1 1)"></use>
+            </symbol>
+            <symbol id="eye-line-left">
+              <path d="M153 188H69" fill="none" stroke="#212121" stroke-width="20" stroke-linecap="round"/>
+            </symbol>
+            <symbol id="eye-line-right">
+              <use href="#eye-line-left" transform="translate(480 0) scale(-1 1)"></use>
+            </symbol>
+            <symbol id="eye-squint2-left">
+              <use href="#eye-squint-left"></use>
+              <use href="#eye-line-left"></use>
+            </symbol>
+            <symbol id="eye-squint2-right">
+              <use href="#eye-squint-right"></use>
+              <use href="#eye-line-right"></use>
+            </symbol>
+            <symbol id="eye-confused-left">
+              <path d="M132 173c-7-8-19-6-26 1-10 10-7 28 4 37 15 13 38 9 50-6 16-20 10-49-10-64-24-19-60-11-77 13a64 64 0 00-9 58" fill="none" stroke="#212121" stroke-width="20" stroke-linecap="round"/>
+            </symbol>
+            <symbol id="eye-confused-right">
+              <use href="#eye-confused-left" transform="translate(247 0)"></use>
+            </symbol>
+            <symbol id="eye-empty-left">
+              <circle r="42" cy="170" cx="104" fill="#fff" stroke="#212121" stroke-width="36" stroke-linejoin="round" paint-order="stroke"/>
+            </symbol>
+            <symbol id="eye-empty-right">
+              <use href="#eye-empty-left" transform="translate(480 0) scale(-1 1)"></use>
+            </symbol>
+            
+            <!-- Mouths -->
+            <symbol id="mouth-open-happy">
+              <path id="mouth-open-happy-bg" d="M289 274c0 38-13 69-49 69s-49-31-49-69z" fill="#212121"/>
+              <clipPath id="mouth-open-happy-clip">
+                <use href="#mouth-open-happy-bg"></use>
+              </clipPath>
+              <circle r="29" cx="240" cy="344" clip-path="url(#mouth-open-happy-clip)" fill="#f44336"/>
+            </symbol>
+            <symbol id="mouth-surprised">
+              <circle r="18" cx="240" cy="275" fill="#212121"/>
+            </symbol>
+            <symbol id="mouth-surprised-big">
+              <ellipse ry="46" rx="30" cy="275" cx="240" fill="#212121"/>
+            </symbol>
+            <symbol id="mouth-confused">
+              <path d="M218 307c0-33 26-60 60-60" fill="none" stroke="#212121" stroke-width="20" stroke-linecap="round" stroke-linejoin="round"/>
+            </symbol>
+            <symbol id="mouth-frown">
+              <path d="M295 300a60 60 0 00-110 0" fill="none" stroke="#212121" stroke-width="20" stroke-linecap="round" stroke-linejoin="round"/>
+            </symbol>
+            <symbol id="mouth-smile">
+              <use href="#mouth-frown" transform="translate(0 560) scale(1 -1)"></use>
+            </symbol>
+            <symbol id="mouth-frown-big">
+              <path d="M300 322a60 60 0 10-120 0" fill="none" stroke="#212121" stroke-width="20" stroke-linecap="round" stroke-linejoin="round"/>
+            </symbol>
+            <symbol id="mouth-smile-big">
+              <use href="#mouth-frown-big" transform="translate(0 596) scale(1 -1)"></use>
+            </symbol>
+            <symbol id="mouth-smirk">
+              <g fill="none" stroke="#212121" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M192 290c37 10 85 8 122-29" stroke-width="20" stroke-miterlimit="0"/>
+                <path d="M323 280a23 23 0 00-29-29" stroke-width="12"/>
+              </g>
+            </symbol>
+            <symbol id="mouth-open-happy-big">
+              <path id="mouth-open-happy-big-bg" d="M290 276c0 76-22 138-50 138s-50-62-50-138z" fill="#212121"/>
+              <clipPath id="mouth-open-happy-big-clip">
+                <use href="#mouth-open-happy-big-bg"></use>
+              </clipPath>
+              <circle r="29" cx="240" cy="408" clip-path="url(#mouth-open-happy-big-clip)" fill="#f44336"/>
+              <rect y="274" x="204" height="26" width="72" fill="#fff"/>
+            </symbol>
+            <symbol id="mouth-cat">
+              <path d="M172 275c0 17 15 30 34 30s34-13 34-30c0 17 15 30 34 30s34-13 34-30" fill="none" stroke="#212121" stroke-width="20" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M240 273c-10 0-29-27-24-33 5-7 43-7 48 0 5 6-14 33-24 33z" fill="#212121"/>
+              <path d="M240 275v-24" fill="none" stroke="#212121" stroke-width="20"/>
+            </symbol>
+            <symbol id="mouth-wide">
+              <rect rx="39" ry="38" y="248" x="175.5" height="76" width="128" fill="#212121"/>
+            </symbol>
+            <symbol id="mouth-wide2">
+              <ellipse id="mouth-wide2-bg" ry="40" rx="58" cx="240" cy="277" fill="#212121"/>
+              <clipPath id="mouth-wide2-clip">
+                <use href="#mouth-wide2-bg"></use>
+              </clipPath>
+              <circle r="29" cx="240" cy="320" clip-path="url(#mouth-wide2-clip)" fill="#f44336"/>
+            </symbol>
+            <symbol id="mouth-open-frown">
+              <path id="mouth-open-frown-bg" d="M312 326c0-56-39-78-72-78s-72 22-72 78c0 0 39-16 72-16s72 16 72 16z" fill="#212121"/>
+              <clipPath id="mouth-open-frown-clip">
+                <use href="#mouth-open-frown-bg"></use>
+              </clipPath>
+              <circle r="29" cx="240" cy="315" clip-path="url(#mouth-open-frown-clip)" fill="#f44336"/>
+            </symbol>
+            <symbol id="mouth-untitled">
+              <path d="M174 269a34 34 0 00-24 10 34 34 0 000 48 34 34 0 0048 0s11-13 42-13 42 13 42 13a34 34 0 0048 0 34 34 0 000-48 34 34 0 00-48 0s-11 13-42 13-42-13-42-13a34 34 0 00-24-10z" fill="#212121"/>
+            </symbol>
+            <symbol id="mouth-line">
+              <path d="M184 300h112" fill="none" stroke="#212121" stroke-width="20" stroke-linecap="round"/>
+            </symbol>
+            <symbol id="mouth-angry">
+              <path id="mouth-angry-bg" d="M298 348c0-85-32-119-59-119s-60 34-60 119c0 0 25-24 60-24s59 24 59 24z" fill="#212121"/>
+              <clipPath id="mouth-angry-clip">
+                <use href="#mouth-angry-bg"></use>
+              </clipPath>
+              <circle r="36" cx="240" cy="220" clip-path="url(#mouth-angry-clip)" fill="#f44336"/>
+            </symbol>
+          </defs>
+        </svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 480" id="face">
+          <use id="eyebrowLeft" data-side="left"></use>
+          <use id="eyebrowRight" data-side="right"></use>
           
-          <!-- Extras -->
-          <symbol id="extra-teardrop">
-            <path d="M438 274s-20 20-20 36a20 20 0 1040 0c0-16-20-36-20-36z" fill="#29b6f6"/>
-          </symbol>
-          <symbol id="extra-lightning">
-            <path d="M330 103l-14 15 40 19-21-22 17-16-30-40-20 23z" fill="#f44336"/>
-            <path d="M393 94l-20-4 4 44 8-30 23 7 19-46-29-6z" fill="#f44336"/>
-            <path d="M436 142l-8-19-34 29 29-10 7 22 49-10-12-28z" fill="#f44336"/>
-          </symbol>
+          <use id="eyeLeft" href="#eye-full-left" data-side="left"></use>
+          <use id="eyeRight" href="#eye-full-right" data-side="right"></use>
           
-          <!-- Eyebrows -->
-          <symbol id="eyebrow-sad-left">
-            <path d="M61 172l86-57" fill="none" stroke="#212121" stroke-width="20" stroke-linecap="round"/>
-          </symbol>
-          <symbol id="eyebrow-sad-right">
-            <use href="#eyebrow-sad-left" transform="translate(480 0) scale(-1 1)"></use>
-          </symbol>
-          <symbol id="eyebrow-angry-left">
-            <path d="M161 164l-85-41" fill="none" stroke="#212121" stroke-width="20" stroke-linecap="round"/>
-          </symbol>
-          <symbol id="eyebrow-angry-right">
-            <use href="#eyebrow-angry-left" transform="translate(480 0) scale(-1 1)"></use>
-          </symbol>
-          <symbol id="eyebrow-caret-left">
-            <path d="M151 117l-48-44-48 44" fill="none" stroke="#212121" stroke-width="20" stroke-linecap="round" stroke-linejoin="round"/>
-          </symbol>
-          <symbol id="eyebrow-caret-right">
-            <use href="#eyebrow-caret-left" transform="translate(480 0) scale(-1 1)"></use>
-          </symbol>
+          <use id="mouth" href="#mouth-open-happy"></use>
           
-          <!-- Eyes -->
-          <symbol id="eye-full-left">
-            <g id="eye-bg">
-              <circle cx="101" cy="192" r="47" fill="#212121"/>
-              <path d="M62 174c-14-12-12-23-8-37 0 14 11 18 25 20" fill="#212121"/>
-            </g>
-            <g id="eye-sparkle">
-              <circle cy="188" cx="77" r="13" fill="#fff"/>
-              <circle cx="90" cy="167" r="6" fill="#fff"/>
-            </g>
-          </symbol>
-          <symbol id="eye-full-right">
-            <use href="#eye-bg" transform="translate(480 0) scale(-1 1)"></use>
-            <use href="#eye-sparkle" transform="translate(278 0)"></use>
-          </symbol>
-          <symbol id="eye-heart-left">
-            <path d="M103 145a25 25 0 00-18 43l39 33 39-33a25 25 0 10-39-32 25 25 0 00-21-11z" fill="#f44336"/>
-          </symbol>
-          <symbol id="eye-heart-right">
-            <use href="#eye-heart-left" transform="translate(480 0) scale(-1 1)"></use>
-          </symbol>
-          <symbol id="eye-angry-left">
-            <path d="M168 198a54 54 0 01-88-62z" fill="#212121"/>
-          </symbol>
-          <symbol id="eye-angry-right">
-            <use href="#eye-angry-left" transform="translate(480 0) scale(-1 1)"></use>
-          </symbol>
-          <symbol id="eye-caret-left">
-            <path d="M161 230l-48-70-48 70" fill="none" stroke="#212121" stroke-width="20" stroke-linecap="round" stroke-linejoin="round"/>
-          </symbol>
-          <symbol id="eye-caret-right">
-            <use href="#eye-caret-left" transform="translate(480 0) scale(-1 1)"></use>
-          </symbol>
-          <symbol id="eye-arch-left">
-            <path d="M158 219a60 60 0 10-120 0" fill="none" stroke="#212121" stroke-width="20" stroke-linecap="round" stroke-linejoin="round"/>
-          </symbol>
-          <symbol id="eye-arch-right">
-            <use href="#eye-arch-left" transform="translate(480 0) scale(-1 1)"></use>
-          </symbol>
-          <symbol id="eye-half-left">
-            <path d="M172 226H64a54 54 0 11108 0z" fill="#212121"/>
-          </symbol>
-          <symbol id="eye-half-right">
-            <use href="#eye-half-left" transform="translate(480 0) scale(-1 1)"></use>
-          </symbol>
-          <symbol id="eye-dead-left">
-            <path d="M85 168l68 68M153 168l-68 68" fill="none" stroke="#212121" stroke-width="20" stroke-linecap="round"/>
-          </symbol>
-          <symbol id="eye-dead-right">
-            <use href="#eye-dead-left" transform="translate(480 0) scale(-1 1)"></use>
-          </symbol>
-          <symbol id="eye-squint-left">
-            <path d="M84 235l69-47-69-47" fill="none" stroke="#212121" stroke-width="20" stroke-linecap="round" stroke-linejoin="round"/>
-          </symbol>
-          <symbol id="eye-squint-right">
-            <use href="#eye-squint-left" transform="translate(480 0) scale(-1 1)"></use>
-          </symbol>
-          <symbol id="eye-line-left">
-            <path d="M153 188H69" fill="none" stroke="#212121" stroke-width="20" stroke-linecap="round"/>
-          </symbol>
-          <symbol id="eye-line-right">
-            <use href="#eye-line-left" transform="translate(480 0) scale(-1 1)"></use>
-          </symbol>
-          <symbol id="eye-squint2-left">
-            <use href="#eye-squint-left"></use>
-            <use href="#eye-line-left"></use>
-          </symbol>
-          <symbol id="eye-squint2-right">
-            <use href="#eye-squint-right"></use>
-            <use href="#eye-line-right"></use>
-          </symbol>
-          <symbol id="eye-confused-left">
-            <path d="M132 173c-7-8-19-6-26 1-10 10-7 28 4 37 15 13 38 9 50-6 16-20 10-49-10-64-24-19-60-11-77 13a64 64 0 00-9 58" fill="none" stroke="#212121" stroke-width="20" stroke-linecap="round"/>
-          </symbol>
-          <symbol id="eye-confused-right">
-            <use href="#eye-confused-left" transform="translate(247 0)"></use>
-          </symbol>
-          <symbol id="eye-empty-left">
-            <circle r="42" cy="170" cx="104" fill="#fff" stroke="#212121" stroke-width="36" stroke-linejoin="round" paint-order="stroke"/>
-          </symbol>
-          <symbol id="eye-empty-right">
-            <use href="#eye-empty-left" transform="translate(480 0) scale(-1 1)"></use>
-          </symbol>
+          <use id="extra"></use>
           
-          <!-- Mouths -->
-          <symbol id="mouth-open-happy">
-            <path id="mouth-open-happy-bg" d="M289 274c0 38-13 69-49 69s-49-31-49-69z" fill="#212121"/>
-            <clipPath id="mouth-open-happy-clip">
-              <use href="#mouth-open-happy-bg"></use>
-            </clipPath>
-            <circle r="29" cx="240" cy="344" clip-path="url(#mouth-open-happy-clip)" fill="#f44336"/>
-          </symbol>
-          <symbol id="mouth-surprised">
-            <circle r="18" cx="240" cy="275" fill="#212121"/>
-          </symbol>
-          <symbol id="mouth-surprised-big">
-            <ellipse ry="46" rx="30" cy="275" cx="240" fill="#212121"/>
-          </symbol>
-          <symbol id="mouth-confused">
-            <path d="M218 307c0-33 26-60 60-60" fill="none" stroke="#212121" stroke-width="20" stroke-linecap="round" stroke-linejoin="round"/>
-          </symbol>
-          <symbol id="mouth-frown">
-            <path d="M295 300a60 60 0 00-110 0" fill="none" stroke="#212121" stroke-width="20" stroke-linecap="round" stroke-linejoin="round"/>
-          </symbol>
-          <symbol id="mouth-smile">
-            <use href="#mouth-frown" transform="translate(0 560) scale(1 -1)"></use>
-          </symbol>
-          <symbol id="mouth-frown-big">
-            <path d="M300 322a60 60 0 10-120 0" fill="none" stroke="#212121" stroke-width="20" stroke-linecap="round" stroke-linejoin="round"/>
-          </symbol>
-          <symbol id="mouth-smile-big">
-            <use href="#mouth-frown-big" transform="translate(0 596) scale(1 -1)"></use>
-          </symbol>
-          <symbol id="mouth-smirk">
-            <g fill="none" stroke="#212121" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M192 290c37 10 85 8 122-29" stroke-width="20" stroke-miterlimit="0"/>
-              <path d="M323 280a23 23 0 00-29-29" stroke-width="12"/>
-            </g>
-          </symbol>
-          <symbol id="mouth-open-happy-big">
-            <path id="mouth-open-happy-big-bg" d="M290 276c0 76-22 138-50 138s-50-62-50-138z" fill="#212121"/>
-            <clipPath id="mouth-open-happy-big-clip">
-              <use href="#mouth-open-happy-big-bg"></use>
-            </clipPath>
-            <circle r="29" cx="240" cy="408" clip-path="url(#mouth-open-happy-big-clip)" fill="#f44336"/>
-            <rect y="274" x="204" height="26" width="72" fill="#fff"/>
-          </symbol>
-          <symbol id="mouth-cat">
-            <path d="M172 275c0 17 15 30 34 30s34-13 34-30c0 17 15 30 34 30s34-13 34-30" fill="none" stroke="#212121" stroke-width="20" stroke-linecap="round" stroke-linejoin="round"/>
-            <path d="M240 273c-10 0-29-27-24-33 5-7 43-7 48 0 5 6-14 33-24 33z" fill="#212121"/>
-            <path d="M240 275v-24" fill="none" stroke="#212121" stroke-width="20"/>
-          </symbol>
-          <symbol id="mouth-wide">
-            <rect rx="39" ry="38" y="248" x="175.5" height="76" width="128" fill="#212121"/>
-          </symbol>
-          <symbol id="mouth-wide2">
-            <ellipse id="mouth-wide2-bg" ry="40" rx="58" cx="240" cy="277" fill="#212121"/>
-            <clipPath id="mouth-wide2-clip">
-              <use href="#mouth-wide2-bg"></use>
-            </clipPath>
-            <circle r="29" cx="240" cy="320" clip-path="url(#mouth-wide2-clip)" fill="#f44336"/>
-          </symbol>
-          <symbol id="mouth-open-frown">
-            <path id="mouth-open-frown-bg" d="M312 326c0-56-39-78-72-78s-72 22-72 78c0 0 39-16 72-16s72 16 72 16z" fill="#212121"/>
-            <clipPath id="mouth-open-frown-clip">
-              <use href="#mouth-open-frown-bg"></use>
-            </clipPath>
-            <circle r="29" cx="240" cy="315" clip-path="url(#mouth-open-frown-clip)" fill="#f44336"/>
-          </symbol>
-          <symbol id="mouth-untitled">
-            <path d="M174 269a34 34 0 00-24 10 34 34 0 000 48 34 34 0 0048 0s11-13 42-13 42 13 42 13a34 34 0 0048 0 34 34 0 000-48 34 34 0 00-48 0s-11 13-42 13-42-13-42-13a34 34 0 00-24-10z" fill="#212121"/>
-          </symbol>
-          <symbol id="mouth-line">
-            <path d="M184 300h112" fill="none" stroke="#212121" stroke-width="20" stroke-linecap="round"/>
-          </symbol>
-          <symbol id="mouth-angry">
-            <path id="mouth-angry-bg" d="M298 348c0-85-32-119-59-119s-60 34-60 119c0 0 25-24 60-24s59 24 59 24z" fill="#212121"/>
-            <clipPath id="mouth-angry-clip">
-              <use href="#mouth-angry-bg"></use>
-            </clipPath>
-            <circle r="36" cx="240" cy="220" clip-path="url(#mouth-angry-clip)" fill="#f44336"/>
-          </symbol>
-        </defs>
-      </svg>
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 480" id="face">
-        <use id="eyebrowLeft" data-side="left"></use>
-        <use id="eyebrowRight" data-side="right"></use>
+          <use href="#blush"></use>
+        </svg>
+      </div>
+      
+      <kalimba_body>
+        <animation_body>
+          <key-note-animation> </key-note-animation>
+        </animation_body>
         
-        <use id="eyeLeft" href="#eye-full-left" data-side="left"></use>
-        <use id="eyeRight" href="#eye-full-right" data-side="right"></use>
-        
-        <use id="mouth" href="#mouth-open-happy"></use>
-        
-        <use id="extra"></use>
-        
-        <use href="#blush"></use>
-      </svg>
+        <bottom-pad id="kalimba">
+          <div class="key" data-note="D6" data-oktave="**" data-key="2"></div>
+          <div class="key" data-note="B5" data-oktave="*" data-key="7"></div>
+          <div class="key" data-note="G5" data-oktave="*" data-key="5"></div>
+          <div class="key" data-note="E5" data-oktave="*" data-key="3"></div>
+          <div class="key" data-note="C5" data-oktave="*" data-key="1"></div>
+          <div class="key" data-note="A4" data-oktave="" data-key="6"></div>
+          <div class="key" data-note="F4" data-oktave="" data-key="4"></div>
+          <div class="key" data-note="D4" data-oktave="" data-key="2"></div>
+          <div class="key" data-note="C4" data-oktave="" data-key="1"></div>
+          <div class="key" data-note="E4" data-oktave="" data-key="3"></div>
+          <div class="key" data-note="G4" data-oktave="" data-key="5"></div>
+          <div class="key" data-note="B4" data-oktave="" data-key="7"></div>
+          <div class="key" data-note="D5" data-oktave="*" data-key="2"></div>
+          <div class="key" data-note="F5" data-oktave="*" data-key="4"></div>
+          <div class="key" data-note="A5" data-oktave="*" data-key="6"></div>
+          <div class="key" data-note="C6" data-oktave="**" data-key="1"></div>
+          <div class="key last-key" data-note="E6" data-oktave="**" data-key="3"></div>
+          <bottom-pad></bottom-pad>
+          <top-pad></top-pad>
+          <bottom-pad class="last-pad"></bottom-pad>
+        </bottom-pad>
+      </kalimba_body>
+      
     </div>
-    <div id="events" class="well"></div>
-    <animation_body>
-      <key-note-animation> </key-note-animation>
-    </animation_body>
-    <br /><br />
-    <kalimba_body>
-      <bottom-pad id="kalimba">
-        <div class="key" data-note="D6" data-oktave="**" data-key="2"></div>
-        <div class="key" data-note="B5" data-oktave="*" data-key="7"></div>
-        <div class="key" data-note="G5" data-oktave="*" data-key="5"></div>
-        <div class="key" data-note="E5" data-oktave="*" data-key="3"></div>
-        <div class="key" data-note="C5" data-oktave="*" data-key="1"></div>
-        <div class="key" data-note="A4" data-oktave="" data-key="6"></div>
-        <div class="key" data-note="F4" data-oktave="" data-key="4"></div>
-        <div class="key" data-note="D4" data-oktave="" data-key="2"></div>
-        <div class="key" data-note="C4" data-oktave="" data-key="1"></div>
-        <div class="key" data-note="E4" data-oktave="" data-key="3"></div>
-        <div class="key" data-note="G4" data-oktave="" data-key="5"></div>
-        <div class="key" data-note="B4" data-oktave="" data-key="7"></div>
-        <div class="key" data-note="D5" data-oktave="*" data-key="2"></div>
-        <div class="key" data-note="F5" data-oktave="*" data-key="4"></div>
-        <div class="key" data-note="A5" data-oktave="*" data-key="6"></div>
-        <div class="key" data-note="C6" data-oktave="**" data-key="1"></div>
-        <div
-          class="key last-key"
-          data-note="E6"
-          data-oktave="**"
-          data-key="3"
-        ></div>
-        <bottom-pad></bottom-pad>
-        <top-pad></top-pad>
-        <bottom-pad class="last-pad"></bottom-pad>
-      </bottom-pad>
-    </kalimba_body>
+    
     <div data-note="NO"></div>
     <script src="lib/midiplayer.js"></script>
     <script src="lib/soundfont-player.min.js"></script>
