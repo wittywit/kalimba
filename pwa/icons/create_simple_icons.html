@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Icon Generator</title>
+</head>
+<body>
+<canvas id="canvas" width="192" height="192"></canvas>
+<script>
+const canvas = document.getElementById('canvas');
+const ctx = canvas.getContext('2d');
+
+// Draw orange background
+ctx.fillStyle = '#F49A1C';
+ctx.fillRect(0, 0, 192, 192);
+
+// Draw rounded corners
+ctx.globalCompositeOperation = 'destination-in';
+ctx.beginPath();
+ctx.roundRect(0, 0, 192, 192, 24);
+ctx.fill();
+ctx.globalCompositeOperation = 'source-over';
+
+// Draw kalimba keys
+ctx.fillStyle = '#E08A0C';
+const keyWidth = 8;
+const keySpacing = 20;
+const keys = [
+  {x: 96-40, y: 60, h: 80},
+  {x: 96-20, y: 45, h: 110},
+  {x: 96, y: 35, h: 130},
+  {x: 96+20, y: 45, h: 110},
+  {x: 96+40, y: 60, h: 80}
+];
+
+keys.forEach(key => {
+  ctx.beginPath();
+  ctx.roundRect(key.x-keyWidth/2, key.y, keyWidth, key.h, keyWidth/2);
+  ctx.fill();
+});
+
+// Draw bridge
+ctx.fillStyle = '#e0e0e0';
+ctx.beginPath();
+ctx.roundRect(50, 75, 92, 6, 3);
+ctx.fill();
+
+// Save as different sizes
+['72', '96', '128', '144', '152', '192', '384', '512'].forEach(size => {
+  const tempCanvas = document.createElement('canvas');
+  tempCanvas.width = parseInt(size);
+  tempCanvas.height = parseInt(size);
+  const tempCtx = tempCanvas.getContext('2d');
+  tempCtx.drawImage(canvas, 0, 0, 192, 192, 0, 0, parseInt(size), parseInt(size));
+  
+  const link = document.createElement('a');
+  link.download = `icon-${size}x${size}.png`;
+  link.href = tempCanvas.toDataURL();
+  link.click();
+});
+
+console.log('Icons generated');
+</script>
+</body>
+</html>

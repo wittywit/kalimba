@@ -1,0 +1,407 @@
+/* Additional Responsive Design for Portrait and Landscape */
+
+/* Extra small phones (320px and up) */
+@media (max-width: 374px) {
+  .kalimba-key {
+    width: 18px;
+    min-width: 18px;
+  }
+  
+  .kalimba-keys {
+    gap: 4px;
+  }
+  
+  .kalimba-container {
+    min-height: 250px;
+  }
+  
+  .chibi-face {
+    width: 80px !important;
+    height: 80px !important;
+  }
+  
+  .top-nav {
+    height: 48px;
+    padding: 0 8px;
+  }
+  
+  .nav-title {
+    font-size: 18px;
+  }
+  
+  .play-area {
+    padding: 12px;
+  }
+  
+  .record-button {
+    padding: 10px 16px;
+    font-size: 14px;
+  }
+}
+
+/* Small phones (375px to 413px) */
+@media (min-width: 375px) and (max-width: 413px) {
+  .kalimba-key {
+    width: 20px;
+    min-width: 20px;
+  }
+  
+  .kalimba-container {
+    min-height: 280px;
+  }
+  
+  .chibi-face {
+    width: 100px !important;
+    height: 100px !important;
+  }
+}
+
+/* Large phones (414px and up) */
+@media (min-width: 414px) {
+  .kalimba-key {
+    width: 26px;
+    min-width: 26px;
+  }
+  
+  .kalimba-keys {
+    gap: 8px;
+  }
+  
+  .kalimba-container {
+    min-height: 320px;
+  }
+  
+  .chibi-face {
+    width: 140px !important;
+    height: 140px !important;
+  }
+  
+  .record-button {
+    padding: 14px 28px;
+  }
+}
+
+/* Landscape orientation adjustments */
+@media (orientation: landscape) {
+  .kalimba-app {
+    flex-direction: row;
+  }
+  
+  .play-area {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    padding: 16px 20px;
+  }
+  
+  .chibi-container {
+    margin-bottom: 0;
+    margin-right: 20px;
+    order: 1;
+  }
+  
+  .chibi-face {
+    width: 80px !important;
+    height: 80px !important;
+  }
+  
+  .kalimba-container {
+    order: 2;
+    margin-bottom: 0;
+    flex: 1;
+    max-width: 300px;
+  }
+  
+  .top-nav {
+    height: 48px;
+  }
+  
+  .bottom-controls {
+    padding: 12px 20px;
+    order: 3;
+    width: auto;
+    flex-direction: column;
+    gap: 12px;
+  }
+  
+  .record-button {
+    padding: 8px 16px;
+    font-size: 14px;
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+  }
+  
+  .control-button {
+    width: 40px;
+    height: 40px;
+  }
+}
+
+/* Very short landscape screens (phones in landscape) */
+@media (orientation: landscape) and (max-height: 500px) {
+  .chibi-container {
+    margin-right: 16px;
+  }
+  
+  .chibi-face {
+    width: 60px !important;
+    height: 60px !important;
+  }
+  
+  .top-nav {
+    height: 44px;
+  }
+  
+  .kalimba-keys {
+    gap: 3px;
+  }
+  
+  .kalimba-key {
+    width: 16px;
+    min-width: 16px;
+  }
+  
+  .bottom-controls {
+    padding: 8px 16px;
+  }
+  
+  .record-button {
+    padding: 6px 12px;
+    font-size: 12px;
+  }
+  
+  .control-button {
+    width: 36px;
+    height: 36px;
+  }
+}
+
+/* Tablet landscape (768px and up in landscape) */
+@media (min-width: 768px) and (orientation: landscape) {
+  .kalimba-app {
+    max-width: 1024px;
+    margin: 0 auto;
+  }
+  
+  .play-area {
+    padding: 32px 40px;
+  }
+  
+  .chibi-face {
+    width: 120px !important;
+    height: 120px !important;
+  }
+  
+  .kalimba-container {
+    max-width: 400px;
+  }
+  
+  .kalimba-key {
+    width: 24px;
+    min-width: 24px;
+  }
+  
+  .record-button {
+    writing-mode: horizontal-tb;
+    padding: 12px 24px;
+    font-size: 16px;
+  }
+  
+  .bottom-controls {
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 20px 40px;
+  }
+  
+  .control-button {
+    width: 48px;
+    height: 48px;
+  }
+}
+
+/* Portrait tablet adjustments */
+@media (min-width: 768px) and (orientation: portrait) {
+  .kalimba-app {
+    max-width: 500px;
+    margin: 0 auto;
+  }
+  
+  .chibi-face {
+    width: 160px !important;
+    height: 160px !important;
+  }
+  
+  .kalimba-key {
+    width: 28px;
+    min-width: 28px;
+  }
+  
+  .top-nav {
+    height: 64px;
+    padding: 0 24px;
+  }
+  
+  .nav-title {
+    font-size: 24px;
+  }
+  
+  .play-area {
+    padding: 40px;
+  }
+  
+  .chibi-container {
+    margin-bottom: 60px;
+  }
+  
+  .kalimba-container {
+    margin-bottom: 60px;
+  }
+  
+  .bottom-controls {
+    padding: 24px;
+  }
+  
+  .record-button {
+    padding: 16px 32px;
+    font-size: 18px;
+  }
+  
+  .control-button {
+    width: 56px;
+    height: 56px;
+  }
+}
+
+/* High DPI displays */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  .kalimba-key {
+    box-shadow: 
+      0 2px 4px var(--shadow-medium),
+      inset 0 0.5px 0 rgba(255, 255, 255, 0.2),
+      inset 0 -1px 0 rgba(0, 0, 0, 0.1);
+  }
+  
+  .kalimba-bridge {
+    box-shadow: 0 1px 2px var(--shadow-light);
+  }
+  
+  .record-button {
+    box-shadow: 0 2px 8px rgba(231, 76, 60, 0.25);
+  }
+  
+  .top-nav {
+    box-shadow: 0 1px 4px var(--shadow-light);
+  }
+  
+  .bottom-controls {
+    box-shadow: 0 -1px 4px var(--shadow-light);
+  }
+}
+
+/* Foldable phones and unusual aspect ratios */
+@media (min-aspect-ratio: 2.1/1) {
+  .play-area {
+    flex-direction: row;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  
+  .chibi-container {
+    margin-right: 40px;
+    margin-bottom: 0;
+  }
+}
+
+/* Ultra-wide screens in landscape */
+@media (min-width: 1024px) and (orientation: landscape) {
+  .kalimba-app {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--surface);
+    box-shadow: 0 0 20px var(--shadow-medium);
+  }
+}
+
+/* Dark mode specific responsive adjustments */
+@media (prefers-color-scheme: dark) {
+  [data-theme="dark"] .kalimba-key {
+    box-shadow: 
+      0 4px 8px rgba(0, 0, 0, 0.4),
+      0 0 10px rgba(244, 154, 28, 0.2),
+      inset 0 1px 0 rgba(255, 255, 255, 0.1),
+      inset 0 -2px 0 rgba(0, 0, 0, 0.2);
+  }
+  
+  [data-theme="dark"] .kalimba-key:active {
+    box-shadow: 
+      0 2px 4px rgba(0, 0, 0, 0.4),
+      0 0 20px rgba(244, 154, 28, 0.5),
+      inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  }
+}
+
+/* Accessibility - Large text mode */
+@media (prefers-font-size: large) {
+  .nav-title {
+    font-size: 22px;
+  }
+  
+  .record-button {
+    font-size: 18px;
+    padding: 14px 28px;
+  }
+  
+  .modal-title {
+    font-size: 20px;
+  }
+  
+  .setting-label {
+    font-size: 16px;
+  }
+}
+
+/* Reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  .chibi-container {
+    animation: none;
+  }
+  
+  .kalimba-key {
+    transition: transform 0.05s ease, box-shadow 0.05s ease;
+  }
+  
+  .record-button.recording {
+    animation: none;
+  }
+  
+  .fade-in,
+  .scale-in {
+    animation: none;
+  }
+}
+
+/* High contrast mode */
+@media (prefers-contrast: high) {
+  .kalimba-key {
+    border: 2px solid var(--text-primary);
+  }
+  
+  .record-button {
+    border: 2px solid white;
+  }
+  
+  .nav-button,
+  .control-button {
+    border: 1px solid var(--text-primary);
+  }
+}
+
+/* Force hardware acceleration on supported elements */
+.kalimba-key,
+.record-button,
+.chibi-face,
+.modal-overlay,
+.modal-content {
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+}

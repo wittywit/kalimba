@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512">
+  <rect width="512" height="512" fill="#F49A1C" rx="64"/>
+  <g transform="translate(256, 256)">
+    <!-- Kalimba keys -->
+    <rect x="-80" y="-160" width="16" height="256" fill="#E08A0C" rx="8"/>
+    <rect x="-40" y="-192" width="16" height="288" fill="#E08A0C" rx="8"/>
+    <rect x="0" y="-224" width="16" height="320" fill="#E08A0C" rx="8"/>
+    <rect x="40" y="-192" width="16" height="288" fill="#E08A0C" rx="8"/>
+    <rect x="80" y="-160" width="16" height="256" fill="#E08A0C" rx="8"/>
+    <!-- Bridge -->
+    <rect x="-128" y="-64" width="256" height="16" fill="#e0e0e0" rx="8"/>
+  </g>
+  <!-- Chibi face -->
+  <circle cx="256" cy="128" r="40" fill="#fff" opacity="0.9"/>
+  <circle cx="240" cy="120" r="24" fill="#333"/>
+  <circle cx="272" cy="120" r="24" fill="#333"/>
+  <circle cx="232" cy="116" r="8" fill="#fff"/>
+  <circle cx="264" cy="116" r="8" fill="#fff"/>
+  <circle cx="220" cy="100" r="12" fill="#ffcdd2"/>
+  <circle cx="292" cy="100" r="12" fill="#ffcdd2"/>
+  <path d="M240 140Q256 150 272 140" stroke="#333" stroke-width="6" fill="none" stroke-linecap="round"/>
+</svg>
