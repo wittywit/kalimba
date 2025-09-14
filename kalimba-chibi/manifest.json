@@ -1,0 +1,14 @@
+{
+  "name": "Kalimba Shalimba",
+  "short_name": "KalimbaKute",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#f0f0f0",
+  "theme_color": "#222",
+  "description": "A fun Kalimba app with a Chibi face that reacts to your music.",
+  "icons": [{
+    "src": "icon.png",
+    "sizes": "512x512",
+    "type": "image/png"
+  }]
+}
